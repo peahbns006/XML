@@ -1,0 +1,49 @@
+<html>
+    <head>
+        <style>
+            table, th, td {
+                border: 1px solid black;
+                border-collapse:collapse;
+            }
+            th, td {
+                padding: 5px;
+            }
+        </style>
+    </head>
+    <body>
+
+    <script>
+        if (window.XMLHttpRequest)
+          {// code for IE7+, Firefox, Chrome, Opera, Safari
+          	xmlhttp=new XMLHttpRequest();
+          }
+        else
+          {// code for IE6, IE5
+          	xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+          }
+          
+        xmlhttp.open("GET","http://www.khaosod.co.th/rss/urgent_news.xml",false);
+        xmlhttp.send();
+        xmlDoc=xmlhttp.responseXML; 
+
+        document.write("<table><tr><th>Title</th><th>Link</th></tr>");
+
+        var title=xmlDoc.getElementsByTagName("title");
+              document.write("<tr><td colspan='2'><center>"+title[0].childNodes[0].nodeValue+"</center></td></tr>");
+
+        var x=xmlDoc.getElementsByTagName("item");
+        for (i=0;i<x.length;i++)
+          { 
+              document.write("<tr><td>");
+              document.write(x[i].getElementsByTagName("title")[0].childNodes[0].nodeValue);
+              document.write("</td><td>");
+              document.write("<a href='"+x[i].getElementsByTagName("link")[0].childNodes[0].nodeValue+"' target='_blank' >");
+              document.write(x[i].getElementsByTagName("link")[0].childNodes[0].nodeValue);
+              document.write("</a>");
+              document.write("</td></tr>");
+          }
+        document.write("</table>");
+    </script>
+
+    </body>
+</html>
